@@ -1,23 +1,409 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>김경민</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono&display=swap" rel="stylesheet">
+
+  <script>
+  /* =====================================================
+     ✏️  여기서 모든 내용을 편집하세요
+  ===================================================== */
+  const DATA = {
+
+    // 기본 정보
+    name:     "김경민",
+    role:     "Developer",
+    location: "Seongnam, Korea",
+    bio:      "웹과 모바일을 넘나드는 제품을 만듭니다. 깔끔한 코드와 세심한 사용자 경험을 중요하게 생각합니다.",
+    email:    "rdijk021457@gmail.com",
+
+    // SNS 링크 (빈 문자열이면 숨겨짐)
+    links: {
+      github:  "https://github.com",
+      notion:  "https://notion.so",
+      twitter: "",
+    },
+
+    // 프로젝트 목록
+    projects: [
+      {
+        no:    1,
+        title: "제목",
+        desc:  "설명",
+        tags:  ["React", "D3.js", "Node.js"],
+        url:   "#",
+      },
+      {
+        no:    2,
+        title: "제목",
+        desc:  "설명",
+        tags:  ["Next.js", "Prisma", "Stripe"],
+        url:   "#",
+      },
+      {
+        no:    3,
+        title: "제목",
+        desc:  "설명",
+        tags:  ["Figma", "Storybook", "TypeScript"],
+        url:   "#",
+      },
+      {
+        no:    4,
+        title: "제목",
+        desc:  "설명",
+        tags:  ["Python", "OpenAI", "FastAPI"],
+        url:   "#",
+      },
+    ],
+
+    // 기술 스택
+    skills: [
+      { label: "Frontend",  items: ["React", "Next.js", "TypeScript", "Tailwind"] },
+      { label: "Backend",   items: ["Node.js", "Python", "PostgreSQL", "Redis"] },
+      { label: "Design",    items: ["Figma", "Framer", "Motion Design"] },
+      { label: "Infra",     items: ["AWS", "Docker", "Vercel", "GitHub Actions"] },
+    ],
+
+  };
+  /* ===================================================== */
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #f7f5f0;
+      --surface: #ffffff;
+      --ink:     #1a1a18;
+      --muted:   #888880;
+      --accent:  #2a5cff;
+      --border:  #e4e2dc;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0;
+      background: rgba(247,245,240,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    .nav-inner {
+      max-width: 760px; margin: 0 auto; padding: 0 32px;
+      height: 56px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .nav-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 17px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* HERO */
+    .hero { padding: 96px 0 80px; border-bottom: 1px solid var(--border); }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      letter-spacing: .08em;
+      margin-bottom: 20px;
+    }
+    .hero-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(48px, 9vw, 76px);
+      line-height: 1.05;
+      letter-spacing: -.025em;
+    }
+    .hero-name em { font-style: italic; color: var(--muted); }
+    .hero-bio {
+      max-width: 460px;
+      font-size: 16px;
+      color: var(--muted);
+      margin-top: 22px;
+      line-height: 1.8;
+    }
+    .hero-actions { display: flex; gap: 10px; margin-top: 36px; flex-wrap: wrap; }
+
+    .btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: .05em;
+      padding: 11px 22px;
+      border-radius: 3px;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: all .2s;
+    }
+    .btn-primary { background: var(--ink); color: var(--bg); }
+    .btn-primary:hover { background: var(--accent); }
+    .btn-ghost { border-color: var(--border); color: var(--muted); }
+    .btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
+
+    /* SECTIONS */
+    section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 36px;
+    }
+
+    /* PROJECTS */
+    .project-row {
+      display: grid;
+      grid-template-columns: 52px 1fr 24px;
+      gap: 0 24px;
+      align-items: start;
+      padding: 26px 0;
+      border-top: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+    }
+    .project-row:last-child { border-bottom: 1px solid var(--border); }
+    .project-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      padding-top: 2px;
+    }
+    .project-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      letter-spacing: -.01em;
+      margin-bottom: 6px;
+      transition: color .2s;
+    }
+    .project-row:hover .project-title { color: var(--accent); }
+    .project-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+    .project-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      padding: 3px 8px;
+      background: var(--border);
+      color: var(--muted);
+      border-radius: 2px;
+    }
+    .project-arrow {
+      font-size: 16px; color: var(--border);
+      padding-top: 2px;
+      transition: color .2s, transform .2s;
+    }
+    .project-row:hover .project-arrow { color: var(--accent); transform: translate(2px,-2px); }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(2,1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .skill-cell { background: var(--bg); padding: 26px 22px; }
+    .skill-cell-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .skill-items { display: flex; flex-wrap: wrap; gap: 7px; }
+    .skill-pill {
+      font-size: 13px;
+      padding: 4px 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+    }
+
+    /* CONTACT */
+    .contact-layout {
+      display: flex; justify-content: space-between;
+      align-items: flex-end; flex-wrap: wrap; gap: 32px;
+    }
+    .contact-heading {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(30px, 5vw, 46px);
+      line-height: 1.2;
+      letter-spacing: -.02em;
+    }
+    .contact-heading em { font-style: italic; color: var(--muted); }
+    .social-links { display: flex; gap: 16px; margin-top: 20px; }
+    .social-link {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      transition: color .2s, border-color .2s;
+    }
+    .social-link:hover { color: var(--ink); border-color: var(--ink); }
+
+    /* FOOTER */
+    footer {
+      padding: 28px 0;
+      display: flex; justify-content: space-between;
+    }
+    footer p {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; color: var(--muted);
+    }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.on { opacity: 1; transform: none; }
+
+    @media (max-width: 580px) {
+      .wrap, .nav-inner { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 72px 0 56px; }
+      .project-row { grid-template-columns: 44px 1fr; }
+      .project-arrow { display: none; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .contact-layout { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
 </head>
-
 <body>
-    <!-- 주석 : ctrl + / -->
-    <!-- 위치이동 : alt + 방향키 -->
-    <h1><a href="#">KKM</a></h1>
-    <h2>개인프로필</h2>
-    <h2>작품 소개</h2>
-    <footer>
-        <!-- 복제 : shif + alt + 방향키 -->
-         <h2>연락처 : </h2>
-         <p>&copy; 2026 KKM. All right reserved.</p>
-    </footer>
-</body>
 
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="nav-name" id="nav-name"></a>
+      <ul class="nav-links">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="wrap">
+
+    <section class="hero">
+      <p class="hero-eyebrow" id="hero-eyebrow"></p>
+      <h1 class="hero-name" id="hero-name"></h1>
+      <p class="hero-bio" id="hero-bio"></p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">연락하기</a>
+        <a href="#projects" class="btn btn-ghost">작업물 보기</a>
+      </div>
+    </section>
+
+    <section id="projects" class="reveal">
+      <p class="section-label">Selected Work</p>
+      <div id="project-list"></div>
+    </section>
+
+    <section id="skills" class="reveal">
+      <p class="section-label">Skills</p>
+      <div class="skills-grid" id="skills-grid"></div>
+    </section>
+
+    <section id="contact" class="reveal">
+      <div class="contact-layout">
+        <div>
+          <h2 class="contact-heading">같이<br>만들어봐요. <em>:)</em></h2>
+          <div class="social-links" id="social-links"></div>
+        </div>
+        <a class="btn btn-primary" id="email-btn" href="#">이메일 보내기 →</a>
+      </div>
+    </section>
+
+    <footer>
+      <p id="footer-left"></p>
+      <p id="footer-right"></p>
+    </footer>
+
+  </div>
+
+  <script>
+    // ── Populate from DATA ──
+    document.getElementById('nav-name').textContent = DATA.name;
+    document.getElementById('hero-eyebrow').textContent = DATA.role + ' · ' + DATA.location;
+
+    // Name: last word in italic
+    const parts = DATA.name.split(' ');
+    document.getElementById('hero-name').innerHTML =
+      parts.slice(0, -1).join(' ') + (parts.length > 1 ? '<br>' : '') +
+      `<em>${parts[parts.length - 1]}</em>`;
+
+    document.getElementById('hero-bio').textContent = DATA.bio;
+    document.getElementById('email-btn').href = 'mailto:' + DATA.email;
+    document.getElementById('footer-left').textContent = `© ${new Date().getFullYear()} ${DATA.name}`;
+    document.getElementById('footer-right').textContent = DATA.location;
+
+    // Projects
+    const pList = document.getElementById('project-list');
+    DATA.projects.forEach(p => {
+      const a = document.createElement('a');
+      a.className = 'project-row';
+      a.href = p.url;
+      a.innerHTML = `
+        <span class="project-year">${String(p.no).padStart(2, "0")}</span>
+        <div>
+          <div class="project-title">${p.title}</div>
+          <div class="project-desc">${p.desc}</div>
+          <div class="project-tags">${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        </div>
+        <span class="project-arrow">↗</span>`;
+      pList.appendChild(a);
+    });
+
+    // Skills
+    const sGrid = document.getElementById('skills-grid');
+    DATA.skills.forEach(s => {
+      const d = document.createElement('div');
+      d.className = 'skill-cell';
+      d.innerHTML = `<div class="skill-cell-label">${s.label}</div>
+        <div class="skill-items">${s.items.map(i => `<span class="skill-pill">${i}</span>`).join('')}</div>`;
+      sGrid.appendChild(d);
+    });
+
+    // Social links
+    const sl = document.getElementById('social-links');
+    Object.entries(DATA.links).forEach(([k, v]) => {
+      if (!v) return;
+      const a = document.createElement('a');
+      a.className = 'social-link';
+      a.href = v; a.target = '_blank';
+      a.textContent = k[0].toUpperCase() + k.slice(1);
+      sl.appendChild(a);
+    });
+
+    // Reveal
+    const obs = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); }),
+      { threshold: 0.08 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  </script>
+
+</body>
 </html>
